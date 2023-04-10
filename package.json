@@ -1,0 +1,26 @@
+{
+  "name": "programmingclub",
+  "version": "1.0.0",
+  "description": "<p>To proper guidelines to our beginner programmers of the IUBAT Competitive programming club, we make an Online judge make for IUBAT_CPC here users can read problem statements and solve and submit their code and get Accepted and Wrong <br/> Tech: Nodejs, MySQL, bootstrap, Ace code editor, GNU compiler</p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "compilex": "^0.7.4",
+    "dayjs": "^1.11.7",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-mysql-session": "^2.1.8",
+    "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "node-sessionstorage": "^1.0.0",
+    "nodemon": "^2.0.20"
+  }
+}

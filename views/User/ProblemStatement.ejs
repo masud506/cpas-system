@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <!-- <link rel="stylesheet" href="/static/css/style.css" /> -->
+
+    <style>
+      .editor {
+        display: block;
+        position: relative;
+        min-height: 200px;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-light"
+        style="background-color: #e3f2fd"
+      >
+        <a class="navbar-brand text-primary" href="#">IUBAT_CPAS</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/problem">Problems</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/ranking">Ranking</a>
+            </li>
+            <!---<li class="nav-item">
+              <a class="nav-link" href="/notice">Notice</a>
+            </li>--->
+            <li class="nav-item">
+              <a class="nav-link" href="/event">Event</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/member">Members</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/seniors">Seniors</a>
+            </li>
+          </ul>
+          <span>
+            <% if(isAuth){%>
+              <a class="text-secondary mt-2" href="/profile">profile</a>
+             <a class=" m-3 btn btn-primary" href="/logout">Logout</a>
+            <%}else{%>
+              <a class="text-secondary mr-4" href="/register">Reg</a>
+             <a class="text-secondary mt-4" href="/login">Login</a>
+            <%}%>
+           
+          </span>
+        </div>
+      </nav>
+    </div>
+
+    <div>
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-light border-top"
+        style="background-color: #98b3ff"
+      >
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="/Problem">Problem List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/problemStatment/<%= problem.pid %>"
+                >Problem Statement</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/submission/<%= problem.pid %>"
+                >Submission</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/solution/<%= problem.pid %>"
+                >Solution</a
+              >
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Problem Statement  -->
+    <div class="d-flex p-2 align-content flex-wrap mt-2 text-justify">
+      <div class="w-50 p-3 overflow-scroll">
+        <h5><b><%- problem.pid %> <%- problem.name %></b></h5>
+        <P><%- problem.statement %></P>
+        <br />
+        <br />
+        <h5><b>Input</b></h5>
+        <%- problem.inputs %>
+        <br />
+        <h5><b>Output</b></h5>
+        <%- problem.outputs %>
+        <br />
+        <br />
+        <h5><b>Test Case</b></h5>
+
+        <p><b>Input:</b></p>
+        <%- problem.input %>
+
+        <p><b>Output:</b></p>
+        <%- problem.output %>
+      </div>
+      <div class="p-2 mx-auto" style="width: 550px">
+        <h4 class="text-primary">Submit Code</h4>
+        <form id="myform" name="myform" method="post" action="/compilercode">
+          <!-- Hidden Id -->
+          <input name="pid" type="hidden" value="<%= problem.pid  %>" />
+          <h5>Code</h5>
+          <input name="code" type="text" hidden id="editortext" />
+
+          <div
+            id="editor"
+            title="css edit:"
+            style="height: 500px; width: 100%; border-radius: 5px; border: 2px solid red;"
+          >
+           write code here
+          </div>
+          <!-- <textarea 
+            rows="13"
+            cols="65"
+            id="code"
+            name="code"
+           
+            placeholder="write code here"
+          ></textarea> -->
+          <br />
+          <h5>Input</h5>
+          <textarea
+            rows="5"
+            cols="65"
+            id="input"
+            name="input"
+            placeholder="write input here"
+            style="width: 100%; background-color: #f3f3f3; border-radius: 5px; border: 2px solid rgb(1, 30, 196);"
+          ></textarea>
+          <br />
+
+          <% if(outputArea === "on") {%>
+          <h5>Output</h5>
+          <textarea
+            rows="5"
+            id="output"
+            cols="65"
+            placeholder="Output Here"
+            style="width: 100%; background-color: #f3f3f3; border-radius: 5px; border: 2px solid rgb(0, 170, 0);"
+          ></textarea>
+          <% } %> Language:
+          <select name="lang">
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+          </select>
+          Compile With Input:
+          <input type="radio" name="inputRadio" id="input" value="true" />YES
+          <input type="radio" name="inputRadio" id="input" value="false" />no
+
+          <div class="w-25 d-inline-flex flex-row mt-3 mr-2">
+            <input
+              name="compile"
+              type="submit"
+              class="mr-2 btn-secondary"
+              value="Compile"
+            />
+            <input
+              name="submit"
+              type="submit"
+              class="btn-primary"
+              value="Submit"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="/static/Js/jquery.min.js"></script>
+    <script src="/static/Js/popper.js"></script>
+    <script src="/static/Js/bootstrap.min.js"></script>
+    <script src="/static/Js/owl.carousel.min.js"></script>
+    <script src="/static/Js/main.js"></script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993"
+      integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA=="
+      data-cf-beacon='{"rayId":"76881d67af7691a8","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2022.11.0","si":100}'
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Editor  Start -->
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+
+    <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/twilight");
+      editor.session.setMode("ace/mode/c_cpp");
+     
+    
+      document.getElementById("editor").style.fontSize = "14px";
+
+      // added event handler
+      document.getElementById("myform").onsubmit = function (evt) {
+       
+        document.getElementById("editortext").value = JSON.stringify(editor.getValue());
+      };
+
+      // Content set After redirecting
+
+      const painText = (a) => {
+        if (a.charAt(0) === '"' && a.charAt(a.length - 1) === '"') {
+          return a.substr(1, a.length - 2);
+        }
+        return "";
+      };
+
+      let code = `<%- JSON.stringify(code) %>`;
+      let input = `<%- JSON.stringify(input) %>`;
+      let ouput = `<%- JSON.stringify(output) %>`;
+
+      code = painText(code);
+      input = painText(input);
+      ouput = painText(ouput);
+
+      console.log("print =>" + code);
+
+      const textArea = () => {
+
+        editor.setValue(code, 1); // set edito value
+
+        document.getElementById("input").value = input;
+        document.getElementById("output").value = ouput;
+      };
+      textArea();
+    </script>
+  </body>
+</html>

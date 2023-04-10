@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= title %>
+  </title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="/static/css/style.css" /> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link rel="stylesheet" href="/static/CSS1/owl.carousel.min.css">
+  <link rel="stylesheet" href="/static/CSS1/owl.theme.default.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css">
+  <link rel="stylesheet" href="/static/CSS1/animate.css">
+  <link rel="stylesheet" href="/static/CSS1/style.css">
+  <!---- <link rel="stylesheet" href="/static/CSS1/nav.css">-->
+
+  <script
+    nonce="8685ecba-e6a7-4a20-8a17-920c084d03e4">(function (w, d) { !function (e, f, g, h) { e.zarazData = e.zarazData || {}; e.zarazData.executed = []; e.zaraz = { deferred: [], listeners: [] }; e.zaraz.q = []; e.zaraz._f = function (i) { return function () { var j = Array.prototype.slice.call(arguments); e.zaraz.q.push({ m: i, a: j }) } }; for (const k of ["track", "set", "debug"]) e.zaraz[k] = e.zaraz._f(k); e.zaraz.init = () => { var l = f.getElementsByTagName(h)[0], m = f.createElement(h), n = f.getElementsByTagName("title")[0]; n && (e.zarazData.t = f.getElementsByTagName("title")[0].text); e.zarazData.x = Math.random(); e.zarazData.w = e.screen.width; e.zarazData.h = e.screen.height; e.zarazData.j = e.innerHeight; e.zarazData.e = e.innerWidth; e.zarazData.l = e.location.href; e.zarazData.r = f.referrer; e.zarazData.k = e.screen.colorDepth; e.zarazData.n = f.characterSet; e.zarazData.o = (new Date).getTimezoneOffset(); if (e.dataLayer) for (const r of Object.entries(Object.entries(dataLayer).reduce(((s, t) => ({ ...s[1], ...t[1] }))))) zaraz.set(r[0], r[1], { scope: "page" }); e.zarazData.q = []; for (; e.zaraz.q.length;) { const u = e.zaraz.q.shift(); e.zarazData.q.push(u) } m.defer = !0; for (const v of [localStorage, sessionStorage]) Object.keys(v || {}).filter((x => x.startsWith("_zaraz_"))).forEach((w => { try { e.zarazData["z_" + w.slice(7)] = JSON.parse(v.getItem(w)) } catch { e.zarazData["z_" + w.slice(7)] = v.getItem(w) } })); m.referrerPolicy = "origin"; m.src = "/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(e.zarazData))); l.parentNode.insertBefore(m, l) };["complete", "interactive"].includes(f.readyState) ? zaraz.init() : e.addEventListener("DOMContentLoaded", zaraz.init) }(w, d, 0, "script"); })(window, document);</script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+    <a class="navbar-brand text-primary" href="#">IUBAT_CPAS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/problem">Problems</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/ranking">Ranking</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/gallery">Gallery</a>
+        </li>
+        <!-- <div class="nav-item">
+              <a class="nav-link" href="/notice"
+                >Notice</a
+              >
+            </div>
+          -->
+
+
+        <li class="nav-item">
+          <a class="nav-link" href="/event">Event</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/member">Members</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/seniors">Seniors</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Dropdown
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/notice"> All Notice </a>
+            <a class="dropdown-item" href="#">Compitition</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Circular</a>
+          </div>
+        </li>
+
+      </ul>
+
+
+
+
+      <span>
+        <% if(isAuth){%>
+          <a class="btn btn-outline-secondary" href="/profile">profile</a>
+          <a class="m-3 btn btn-outline-danger" href="/notice">Notice</a>
+          <% if(isAdmin){%>
+            <a class=" m-3 btn btn-primary" href="/admin">Dashboard</a>
+            <%} %>
+              <a class=" m-3 btn btn-primary" href="/logout">Logout</a>
+              <%}else{%>
+                <a class="text-secondary mr-4" href="/register">Reg</a>
+                <a class="text-secondary mt-4" href="/login">Login</a>
+                <%}%>
+
+      </span>
+
+    </div>
+  </nav>
+
+
+  </div>
+
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="slider-hero">
+            <div class="featured-carousel owl-carousel">
+              <div class="item">
+                <div class="work">
+                  <div class="img d-flex align-items-center justify-content-center"
+                    style="background-image: url(/static/img/slid8.png);">
+                    <div class="text text-center">
+                      <h2>Battle of Intleacts</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="work">
+                  <div class="img d-flex align-items-center justify-content-center"
+                    style="background-image: url(/static/img/slid10.png);">
+                    <div class="text text-center">
+                      <h2>CSE BATTLE OF INTELLECTS</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="work">
+                  <div class="img d-flex align-items-center justify-content-center"
+                    style="background-image: url(/static/img/11.png);">
+                    <div class="text text-center">
+                      <h2>Intra University Programming Contest, Spring-2020</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="my-5 text-center">
+              <ul class="thumbnail">
+                <li class="active img"><a href="#"><img src="/static/img/slid8.png" alt="Image" class="img-fluid"></a>
+                </li>
+                <li><a href="#"><img src="/static/img/slid10.png" alt="Image" class="img-fluid"></a></li>
+                <li><a href="#"><img src="/static/img/11.png" alt="Image" class="img-fluid"></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <script src="/static/Js/jquery.min.js"></script>
+  <script src="/static/Js/popper.js"></script>
+  <script src="/static/Js/bootstrap.min.js"></script>
+  <script src="/static/Js/owl.carousel.min.js"></script>
+  <script src="/static/Js/main.js"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993"
+    integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA=="
+    data-cf-beacon='{"rayId":"76881d67af7691a8","token":"cd0b4b3a733644fc843ef0b185f98241","version":"2022.11.0","si":100}'
+    crossorigin="anonymous"></script>
+
+  <script>
+    function dropdownMenu() {
+      var list = document.getElementById("option");
+      document.getElementById("city").value = list.options[list.selectedIndex].text;
+    }  
+  </script>
+
+
+</body>
+
+</html>
